@@ -44,3 +44,31 @@ def total_revenue(num_units: float, price: float) -> float:
     return (num_units * price)
 
 total_revenue(10, 70)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def CESutility(good_x: float, good_y: float, parameter: float) -> float:
+    """ Return the value of Constant Elasticity of Substitution utility function,
+    measuring the degree of satisfaction a consumer may get from two goods
+    >>>CESutility(100,50,20)
+    100
+    >>>CESutility(50,25,10)
+    50.005
+    """
+    
+    return ((good_x ** parameter) + (good_y ** parameter)) ** (1 / parameter)
+
+CESutility(50, 25, 10)
