@@ -46,9 +46,10 @@ def total_revenue(num_units: float, price: float) -> float:
 total_revenue(10, 70)
 
 
+
 def total_cost(units_produced: float, constant: float, fixed_cost: float) -> float:
     """Return the total cost incurred by a firm to produce a product
-    >>> total_cost(64,16,25)
+    >>>total_cost(64,16,25)
     65,561
     >>>total_cost(100,20,50)
     200,050
@@ -57,6 +58,7 @@ def total_cost(units_produced: float, constant: float, fixed_cost: float) -> flo
     return units_produced * (constant ** 2) + fixed_cost
 
 total_cost(64,16,25)
+
 
 
 def CESutility(good_x: float, good_y: float, parameter: float) -> float:
