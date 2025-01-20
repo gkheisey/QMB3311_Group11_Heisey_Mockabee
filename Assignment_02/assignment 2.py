@@ -2,7 +2,7 @@
 """
 Created on Thu Jan 16 11:10:26 2025
 
-@author: grant
+@author: Grant & Matt
 """
 
 def present_value(cash_flow: float, interest_rate: float, num_years: float) -> float:
@@ -47,16 +47,21 @@ total_revenue(10, 70)
 
 
 
+def total_cost(units_produced: float, constant: float, fixed_cost: float) -> float:
+    """Return the total cost incurred by a firm to produce a product"""
+    q= units_produced
+    a= constant
+    b= fixed_cost
+    """
+    >>> total_cost(64,16,25)
+    65,561
+    >>>total_cost(100,20,50)
+    200,050
+    """
+    
+    return a * (q**2) + b
 
-
-
-
-
-
-
-
-
-
+total_cost(64,16,25)
 
 
 
