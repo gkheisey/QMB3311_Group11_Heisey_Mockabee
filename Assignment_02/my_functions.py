@@ -12,7 +12,8 @@ def present_value(cash_flow: float, interest_rate: float, num_years: float) -> f
     >>>present_value(50, .07, 3)
     40.81
     """
-    
+    # needs 3 examples (-1)
+    # needs either a precondition or checks to make sure that variables are not negative (-1)    
     return cash_flow / ((1 + interest_rate) ** num_years)
 
 present_value(100, .12, 2)
@@ -26,7 +27,8 @@ def future_value(cash_flow: float, interest_rate: float, num_years: float) -> fl
     >>>future_value(200,.07,2)
     228.98
     """
- 
+    # needs 3 examples (-1)
+    # needs either a precondition or checks to make sure that variables are not negative (-1) 
     return cash_flow * ((1 + interest_rate) ** num_years)
 
 future_value(100, .05, 3)
@@ -40,6 +42,8 @@ def total_revenue(num_units: float, price: float) -> float:
     >>>total_revenue(15,25)
     375
     """
+    # needs 3 examples (-1)
+    # needs either a precondition or checks to make sure that variables are not negative (-1)
  
     return (num_units * price)
 
@@ -54,7 +58,8 @@ def total_cost(units_produced: float, constant: float, fixed_cost: float) -> flo
     >>>total_cost(100,20,50)
     200,050
     """
-    
+    # needs 3 examples (-1)
+    # needs either a precondition or checks to make sure that variables are not negative (-1)
     return constant * (units_produced ** 2) + fixed_cost
 
 total_cost(100,20,50)
@@ -69,7 +74,10 @@ def CESutility(good_x: float, good_y: float, parameter: float) -> float:
     >>>CESutility(50,25,10)
     50.005
     """
-    
+    # needs 3 examples (-1)
+    # needs either a precondition or checks to make sure that variables are not negative (-1)
     return ((good_x ** parameter) + (good_y ** parameter)) ** (1 / parameter)
 
 CESutility(50, 25, 10)
+
+# Missing last part from sample script (-3)
