@@ -40,7 +40,7 @@ import math
 
 # Only function definitions here - no other calculations. 
 
-# Exercise 1
+# Exercise A
 
 def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
     """ Returns the same value as CESutility() when x and y are non-negative
