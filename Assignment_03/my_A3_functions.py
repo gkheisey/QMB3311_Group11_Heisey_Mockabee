@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Mon Feb  3 17:21:46 2025
+
+@author: grant
+"""
+
+# -*- coding: utf-8 -*-
+"""
 ##################################################
 #
 # QMB 3311: Python for Business Analytics
@@ -23,7 +30,8 @@
 
 # import name_of_module
 
-import 
+import math
+
 
 
 ##################################################
@@ -52,9 +60,13 @@ def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
 
 # ...
 
-# Define the rest of your functions for Exercises 2-4.
- 
+# Exercise C
 
+
+def logit(x, beta0, beta1):
+    """Computes the logit function ℓ(x; β0, β1)."""
+    exponent = beta0 + x * beta1
+    return math.exp(exponent) / (1 + math.exp(exponent))
 
 
 # Only function definitions above this point. 
@@ -67,10 +79,18 @@ def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
 
 # Code goes here.
 
+#A
 print(CESutility_valid(4, 5, 1))
 print(CESutility_valid(-4, 5, 1))
 print(CESutility_valid(8, -10, 2))
 print(CESutility_valid(8, 10, -2))
+
+#B
+
+#C
+print(logit(0, 0, 0))
+print(logit(1, math.log(1), math.log(2)))
+print(logit(2, math.log(1/2), math.log(3)))
 
 ##################################################
 # End
