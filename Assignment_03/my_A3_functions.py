@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb  3 17:21:46 2025
-
-@author: grant
-"""
-
-# -*- coding: utf-8 -*-
-"""
 ##################################################
 #
 # QMB 3311: Python for Business Analytics
@@ -44,9 +37,9 @@ import math
 # Exercise A
 
 def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
-    """ Returns the same value as CESutility() when x and y are non-negative
-    numbers and r is strictly positive but
-    returns the value None otherwise"""
+    """ Return the same value as CESutility() when x and y are non-negative
+    numbers and r is strictly positive.
+    Return the value None otherwise"""
     
     if good_x < 0:
         print("Error: good_x cannot be negative.")
@@ -71,7 +64,7 @@ def CESutility_in_budget(x: float, y: float, r: float, p_x: float, p_y: float,
         print("Error: Prices cannot be negative")
         return None
     if r <= 0:
-        print("Error: parameter must be strictly positive")
+        print("Error: Parameter must be strictly positive")
         return None
     if w < (p_x * x + p_y * y):
         print("Error: Consumer's choice exceeds their budget")
