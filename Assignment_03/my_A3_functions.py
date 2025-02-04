@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb  3 17:21:46 2025
-
-@author: grant
-"""
-
-# -*- coding: utf-8 -*-
-"""
 ##################################################
 #
 # QMB 3311: Python for Business Analytics
@@ -30,8 +23,7 @@ Created on Mon Feb  3 17:21:46 2025
 
 # import name_of_module
 
-import math
-
+import 
 
 
 ##################################################
@@ -43,9 +35,9 @@ import math
 # Exercise 1
 
 def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
-    """ Returns the same value as CESutility() when x and y are non-negative
-    numbers and r is strictly positive but
-    returns the value None otherwise"""
+    """ Return the same value as CESutility() when x and y are non-negative
+    numbers and r is strictly positive.
+    Return the value None otherwise"""
     
     if good_x < 0:
         print("Error: good_x cannot be negative.")
@@ -60,26 +52,24 @@ def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
 
 # ...
 
-# Exercise C
-
-
-def logit(x, beta0, beta1):
-    """Computes the logit function ℓ(x; β0, β1)."""
-    exponent = beta0 + x * beta1
-    return math.exp(exponent) / (1 + math.exp(exponent))
-
-
-#Exercise D
-
-
-def logit_like(yi, xi, beta0, beta1):
-    """Computes the log-likelihood of an observation (yi, xi)."""
-    p = logit(xi, beta0, beta1)
+# Define the rest of your functions for Exercises 2-4.
+ 
+def CESutility_in_budget(x: float, y: float, r: float, p_x: float, p_y: float,
+                         w: float) -> float:
+    """ Evaluate CESutility valid() when the consumer’s choice of goods x and y
+    are within budget. 
+    Return the value None otherwise"""
     
-    if yi == 1:
-        return math.log(p)
-    else:
-        return math.log(1 - p)
+    if p_x < 0 or p_y < 0:
+        print("Error: Prices cannot be negative")
+        return None
+    if r <= 0:
+        print("Error: parameter must be strictly positive")
+        return None
+    if w < (p_x * x + p_y * y):
+        print("Error: Consumer's choice exceeds their budget")
+        return None
+    return CESutility_valid(good_x, good_y, parameter)
 
 
 # Only function definitions above this point. 
@@ -92,23 +82,12 @@ def logit_like(yi, xi, beta0, beta1):
 
 # Code goes here.
 
-#A
 print(CESutility_valid(4, 5, 1))
 print(CESutility_valid(-4, 5, 1))
 print(CESutility_valid(8, -10, 2))
 print(CESutility_valid(8, 10, -2))
 
-#B
-
-#C
-print(logit(0, 0, 0))
-print(logit(1, math.log(1), math.log(2)))
-print(logit(2, math.log(1/2), math.log(3)))
-
-#D
-print(logit_like(1, 0, 0, 0))
-print(logit_like(0, 1, 0, 1))
-print(logit_like(1, 2, 1, 1))
+print(CESutility_in_budget(4, 5, 1, 2, 2, 20))
 
 ##################################################
 # End
