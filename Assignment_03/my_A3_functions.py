@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Mon Feb  3 17:21:46 2025
+
+@author: grant
+"""
+
+# -*- coding: utf-8 -*-
+"""
 ##################################################
 #
 # QMB 3311: Python for Business Analytics
@@ -23,7 +30,8 @@
 
 # import name_of_module
 
-import 
+import math
+
 
 
 ##################################################
@@ -32,12 +40,13 @@ import
 
 # Only function definitions here - no other calculations. 
 
-# Exercise 1
+#1
+# Exercise A
 
 def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
-    """ Return the same value as CESutility() when x and y are non-negative
-    numbers and r is strictly positive.
-    Return the value None otherwise"""
+    """ Returns the same value as CESutility() when x and y are non-negative
+    numbers and r is strictly positive but
+    returns the value None otherwise"""
     
     if good_x < 0:
         print("Error: good_x cannot be negative.")
@@ -46,14 +55,12 @@ def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
         print("Error: good_y cannot be negative.")
         return None
     if parameter <= 0:
-        print("Error: parameter must be strictly positive")
+        print("Error: paramter must be strictly positive")
         return None
     return ((good_x ** parameter) + (good_y ** parameter)) ** (1 / parameter)
 
-# ...
+# Exercise B
 
-# Define the rest of your functions for Exercises 2-4.
- 
 def CESutility_in_budget(x: float, y: float, r: float, p_x: float, p_y: float,
                          w: float) -> float:
     """ Evaluate CESutility valid() when the consumer’s choice of goods x and y
@@ -71,6 +78,27 @@ def CESutility_in_budget(x: float, y: float, r: float, p_x: float, p_y: float,
         return None
     return CESutility_valid(x, y, r)
 
+# Exercise C
+
+
+def logit(x, beta0, beta1):
+    """Computes the logit function ℓ(x; β0, β1)."""
+    exponent = beta0 + x * beta1
+    return math.exp(exponent) / (1 + math.exp(exponent))
+
+
+#Exercise D
+
+
+def logit_like(yi, xi, beta0, beta1):
+    """Computes the log-likelihood of an observation (yi, xi)."""
+    p = logit(xi, beta0, beta1)
+    
+    if yi == 1:
+        return math.log(p)
+    else:
+        return math.log(1 - p)
+
 
 # Only function definitions above this point. 
 
@@ -82,14 +110,27 @@ def CESutility_in_budget(x: float, y: float, r: float, p_x: float, p_y: float,
 
 # Code goes here.
 
+#A
 print(CESutility_valid(4, 5, 1))
 print(CESutility_valid(-4, 5, 1))
 print(CESutility_valid(8, -10, 2))
-print(CESutility_valid(8, 10, -2))
+
+#B
 
 print(CESutility_in_budget(4, 8, -2, 4, 4, 10))
 print(CESutility_in_budget(4, 5, 1, 2, 2, 20))
 print(CESutility_in_budget(4, 6, 1, 2, 2, 8))
+
+#C
+print(logit(0, 0, 0))
+print(logit(1, math.log(1), math.log(2)))
+print(logit(2, math.log(1/2), math.log(3)))
+
+#D
+print(logit_like(1, 0, 0, 0))
+print(logit_like(0, 1, 0, 1))
+print(logit_like(1, 2, 1, 1))
+
 ##################################################
 # End
 ##################################################
