@@ -46,7 +46,7 @@ def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
         print("Error: good_y cannot be negative.")
         return None
     if parameter <= 0:
-        print("Error: paramter must be strictly positive")
+        print("Error: parameter must be strictly positive")
         return None
     return ((good_x ** parameter) + (good_y ** parameter)) ** (1 / parameter)
 
@@ -69,7 +69,7 @@ def CESutility_in_budget(x: float, y: float, r: float, p_x: float, p_y: float,
     if w < (p_x * x + p_y * y):
         print("Error: Consumer's choice exceeds their budget")
         return None
-    return CESutility_valid(good_x, good_y, parameter)
+    return CESutility_valid(x, y, r)
 
 
 # Only function definitions above this point. 
@@ -87,8 +87,9 @@ print(CESutility_valid(-4, 5, 1))
 print(CESutility_valid(8, -10, 2))
 print(CESutility_valid(8, 10, -2))
 
+print(CESutility_in_budget(4, 8, -2, 4, 4, 10))
 print(CESutility_in_budget(4, 5, 1, 2, 2, 20))
-
+print(CESutility_in_budget(4, 6, 1, 2, 2, 8))
 ##################################################
 # End
 ##################################################
