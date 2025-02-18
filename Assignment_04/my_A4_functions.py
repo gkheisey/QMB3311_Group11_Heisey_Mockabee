@@ -128,13 +128,31 @@ for i in range(len(y)):
 
 # Exercise 4
 
-def CESutility_multi(x,a,r):
-
-    inside = 0
-    for i in range(len(x)):
-        inside += a[i]**(1-r)*x[i]**r
-        
-    return inside ** (1/r)
+def CESutility_multi(x, a, r):
+   """Calculate the Constant Elasticity of Substitution utility for multiple goods."""
+   if not isinstance(x, (list, np.ndarray)) or not isinstance(a, (list, np.ndarray)):
+       return None 
+   x = np.array(x, dtype=float)
+   a = np.array(a, dtype=float)
+   if len(x) != len(a) or len(x) == 0:
+       return None
+   if np.any(x < 0) or np.any(a < 0):
+       return None
+   if np.all(a == 0):
+       return None
+   if not isinstance(r, (int, float)):
+       return None
+   r = float(r)
+   if r == 0:
+       return float(np.prod(np.power(x, a)))
+   power_terms = np.power(a, 1-r) * np.power(x, r)
+   sum_term = np.sum(power_terms)
+   if sum_term <= 0:
+       return None
+   result = np.power(sum_term, 1/r)
+   if not np.isreal(result) or np.isnan(result) or np.isinf(result):
+       return None
+   return float(result)
 
 # Only function definitions above this point. 
 
