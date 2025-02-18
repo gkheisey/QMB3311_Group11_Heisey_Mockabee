@@ -24,6 +24,7 @@
 # import name_of_module
 
 import numpy as np
+import doctest
 
 ##################################################
 # Function Definitions
@@ -143,8 +144,39 @@ def CESutility_multi(x, a, r):
 ##################################################
 
 
-# Question 2: Test using the doctest module. 
-Exercise 3:
+# Question 2: Test using the doctest module.
+
+#Exercise 1:
+
+    >>>mat1 = np.array([[1, 0], [0, 1]])
+print(matrix_inverse(mat1))
+    >>>mat2 = np.array([[4, 7], [2, 6]])
+print(matrix_inverse(mat2))
+    >>>mat3 = np.array([[3, 5], [1, 2]])
+print(matrix_inverse(mat3))
+
+#Exercise 2:
+
+    >>>beta_0 = 0
+beta_1 = 1
+x = np.array([1])
+y = np.array([1])
+print(logit_like_sum(y, x, beta_0, beta_1))
+
+    >>>x = np.array([1, 2, 3])
+y = np.array([0, 1, 1])
+beta_0 = -1
+beta_1 = 0.5
+print(logit_like_sum(y, x, beta_0, beta_1))
+
+    >>>x = np.array([0, 0, 0])
+y = np.array([0, 1, 0])
+beta_0 = 0
+beta_1 = 0
+print(logit_like_sum(y, x, beta_0, beta_1))
+
+#Exercise 3:
+
     >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], 0.0, 0.0)
     [0.0, 0.0]
     >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(3), 0.0)
@@ -158,8 +190,8 @@ Exercise 3:
     >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
     [-2/3, -2.0]
 
+#Exercise 4:
 
-Exercise 4:
     >>> (CESutility_multi([1, 1], [1, 1], 0.5))  
     4.0
     >>> (CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5))  
