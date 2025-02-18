@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 17 22:04:05 2025
-
-@author: grant
-"""
-
-# -*- coding: utf-8 -*-
-"""
 ##################################################
 #
 # QMB 3311: Python for Business Analytics
 #
 # Name: Matthew Mockabee & Grant Heisey
 #
-# Date: 2/17/2025
+# Date: 2/3/2025
 # 
 ##################################################
 #
-# Sample Script for Assignment 4: 
+# Sample Script for Assignment 3: 
 # Function Definitions
 #
 ##################################################
@@ -30,7 +23,9 @@ Created on Mon Feb 17 22:04:05 2025
 
 # import name_of_module
 
-import numpy as np
+import math
+
+
 
 ##################################################
 # Function Definitions
@@ -38,145 +33,89 @@ import numpy as np
 
 # Only function definitions here - no other calculations. 
 
-# Exercise 1
-
-def matrix_inverse(mat_in):
+def CESutility(good_x: float, good_y: float, r: float) -> float:
+    """Calculate the constant elasticity of subsitution utility function for two goods.
+    
+    >>> CESutility(3, 4, 2)
+    5.0
+    >>> CESutility(1, 1, 2)
+    1.4142135623730951
+    >>> CESutility(3**0.5, 4**0.5, 4)
+    2.23606797749979
     """
-    Replicate the numpy method linalg.inv() that calculates the inverse of 
-    a two-by-two matrix mat in.
-    The inverse of the matrix A denoted A−1, is a matrix the same size as A 
-    such that A * A−1 = I, where I is the identity matrix with ones on the
-    diagonal and zeros elsewhere. It can be used to solve the systems of 
-    equations A * x = b by multiplying A−1 with b toget x = A−1 * b
-    """
-    if mat_in.shape != (2, 2):
-        print("Error: Input must be a 2x2 matrix")
+    
+    utility = (good_x**r + good_y**r)**(1/r)
+    return utility
+#1
+# Exercise A
+
+def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
+    """ Return the same value as CESutility() when x and y are non-negative
+    numbers and r is strictly positive.
+    Return the value None otherwise"""
+    
+    # examples in description? (-3)
+    if good_x < 0:
+        print("Error: good_x cannot be negative.")
         return None
-        
-    a11, a12 = mat_in[0, 0], mat_in[0, 1]
-    a21, a22 = mat_in[1, 0], mat_in[1, 1]
-    
-    det = a11*a22 - a12*a21
-    
-    if det == 0:
-        print("Error: Determinant cannot be zero")
+@@ -50,7 +64,7 @@
+    if parameter <= 0:
+        print("Error: paramter must be strictly positive")
         return None
-        
-    mat_out = np.zeros((2, 2))
-    mat_out[0, 0] = a22/det
-    mat_out[0, 1] = -a12/det
-    mat_out[1, 0] = -a21/det
-    mat_out[1, 1] = a11/det
+    return ((good_x ** parameter) + (good_y ** parameter)) ** (1 / parameter)
+    return CESutility(good_x, good_y, parameter)
+
+# Exercise B
+
+@@ -59,13 +73,11 @@
+    """ Evaluate CESutility valid() when the consumer’s choice of goods x and y
+    are within budget. 
+    Return the value None otherwise"""
     
-    return mat_out
+    # examples in description? (-3)
+    if p_x < 0 or p_y < 0:
+        print("Error: Prices cannot be negative")
+        return None
+    if r <= 0:
+        print("Error: Parameter must be strictly positive")
+        return None
+# handled in CESutility_vaild()
+    if w < (p_x * x + p_y * y):
+        print("Error: Consumer's choice exceeds their budget")
+        return None
+@@ -74,23 +86,29 @@
+# Exercise C
 
-# Exercise 2
 
-def logit_like(x, beta_0, beta_1):
+def logit(x, beta0, beta1):
+def logit(x, beta0, beta1): # expected input/output? (-2)
+    """Computes the logit function ℓ(x; β0, β1)."""
+    # examples in description? (-3)
+    exponent = beta0 + x * beta1
+    return math.exp(exponent) / (1 + math.exp(exponent))
+
+
+#Exercise D
+
+
+def logit_like(yi, xi, beta0, beta1):
+def logit_like(yi, xi, beta0, beta1): # expected input/output? (-2)
+    """Computes the log-likelihood of an observation (yi, xi)."""
+    p = logit(xi, beta0, beta1)
     
-    z= beta_0 + x * beta_1
-    
-    return np.exp(z) / (1 + np.exp(z))
-
-def logit_like_sum(y,x,beta_0, beta_1):
-    
-    log_likelihood = 0
-    for i in range(len(y)):
-        log_likelihood += logit_like(y[i],x[i],beta_0,beta_1)
-        
-        if y[i] == 1:
-            log_likelihood += np.log(logit_like)
-        else:
-            log_likelihood += np.log(1 - logit_like)
-       
-        return log_likelihood
-
-# Exercise 3
+    if yi == 1:
+        return math.log(p)
+    # examples in description? (-3)
+    link = logit(xi, beta0, beta1)
+    if yi == 0:
+        like = math.log(1 - link)
+    elif yi == 1:
+        like = math.log(link)
+    else:
+        return math.log(1 - p)
+        print("Warning: y is not binary. y should be either 1 or 0.")
+        like = None
+    return like # missed case where yi could be not zero or 1 (-1)
 
 
-import math
-
-def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
-    """Calculates the gradient vector of the likelihood function
-    for the bivariate logistic regression model."""
-    
-    grad_beta_0 = 0.0
-    grad_beta_1 = 0.0
-   
-    for i in range(len(y)):
-        l_val = logit_like(x[i], beta_0, beta_1)
-          
-        if y[i] == 1:
-            grad_beta_0 += (1 - l_val)
-            grad_beta_1 += x[i] * (1 - l_val)
-        else:
-            grad_beta_0 += (-l_val)
-            grad_beta_1 += x[i] * (-l_val)
-    
-    return np.array([grad_beta_0, grad_beta_1])
-
-
-# Exercise 4
-
-def CESutility_multi(x, a, r):
-   """Calculate the Constant Elasticity of Substitution utility for multiple goods."""
-   if not isinstance(x, (list, np.ndarray)) or not isinstance(a, (list, np.ndarray)):
-       return None 
-   x = np.array(x, dtype=float)
-   a = np.array(a, dtype=float)
-   if len(x) != len(a) or len(x) == 0:
-       return None
-   if np.any(x < 0) or np.any(a < 0):
-       return None
-   if np.all(a == 0):
-       return None
-   if not isinstance(r, (int, float)):
-       return None
-   r = float(r)
-   if r == 0:
-       return float(np.prod(np.power(x, a)))
-   power_terms = np.power(a, 1-r) * np.power(x, r)
-   sum_term = np.sum(power_terms)
-   if sum_term <= 0:
-       return None
-   result = np.power(sum_term, 1/r)
-   if not np.isreal(result) or np.isnan(result) or np.isinf(result):
-       return None
-   return float(result)
-# Only function definitions above this point. 
-
-
-# Only function definitions above this point. 
-
-
-##################################################
-# Run the examples to test these functions
-##################################################
-
-
-# Code goes here.
-
-#A
-print(CESutility_valid(4, 5, 1))
-print(CESutility_valid(-4, 5, 1))
-print(CESutility_valid(8, -10, 2))
-
-#B
-
-print(CESutility_in_budget(4, 8, -2, 4, 4, 10))
-print(CESutility_in_budget(4, 5, 1, 2, 2, 20))
-print(CESutility_in_budget(4, 6, 1, 2, 2, 8))
-
-#C
-print(logit(0, 0, 0))
-print(logit(1, math.log(1), math.log(2)))
-print(logit(2, math.log(1/2), math.log(3)))
-
-#D
-print(CESutility_multi([1, 1], [1, 1], 0.5)) 
-print(CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5)) 
-print(CESutility_multi([1, -1], [1, 1], 0.5))  
-
-##################################################
-# End
-##################################################
+# Only function definitions above this point.
