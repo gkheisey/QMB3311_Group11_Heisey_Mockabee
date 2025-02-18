@@ -160,9 +160,12 @@ Exercise 3:
 
 
 Exercise 4:
-    print(CESutility_multi([1, 1], [1, 1], 0.5))  
-    print(CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5))  
-    print(CESutility_multi([1, -1], [1, 1], 0.5))
+    >>> (CESutility_multi([1, 1], [1, 1], 0.5))  
+    4.0
+    >>> (CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5))  
+    5.090890230020665
+    >>> (CESutility_multi([1, -1], [1, 1], 0.5))
+    None
 
 # Make sure to include exampes in your docstring
 # with the proper formatting. 
