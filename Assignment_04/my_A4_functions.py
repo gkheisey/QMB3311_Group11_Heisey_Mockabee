@@ -41,14 +41,6 @@ def matrix_inverse(mat_in):
     such that A * A−1 = I, where I is the identity matrix with ones on the
     diagonal and zeros elsewhere. It can be used to solve the systems of 
     equations A * x = b by multiplying A−1 with b toget x = A−1 * b
-
-    
-    Parameters:
-        mat_in (numpy.ndarray): Input 2x2 matrix
-        
-    Returns:
-        numpy.ndarray: Inverse matrix if it exists
-        None: if matrix is not invertible
     """
     if mat_in.shape != (2, 2):
         print("Warning: Input must be a 2x2 matrix")
@@ -72,6 +64,24 @@ def matrix_inverse(mat_in):
 
 # Exercise 2
 
+def logit_like(x, beta_0, beta_1):
+    
+    z= beta_0 + x * beta_1
+    
+    return np.exp(z) / (1 + np.exp(z))
+
+def logit_like_sum(y,x,beta_0, beta_1):
+    
+    log_likelihood = 0
+    for i in range(len(y)):
+        log_likelihood += logit_like(y[i],x[i],beta_0,beta_1)
+        
+        if y[i] == 1:
+            log_likelihood += np.log(logit_like)
+        else:
+            log_likelihood += np.log(1 - logit_like)
+       
+        return log_likelihood
 
 # Exercise 3
 
@@ -99,13 +109,35 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
     [-2/3, -2.0]
     """
-    
-    return None
+   
+grad_b0 = 0.0
+grad_b1 = 0.0
+   
+for i in range(len(y)):
+    l_val = logit_like(x[i], beta_0, beta_1)
+      
+    if y[i] == 1:
+        grad_b0 += (1 - l_val)
+    else:
+        grad_b0 += (-l_val)
+           
+    if y[i] == 1:
+        grad_b1 += x[i] * (1 - l_val)
+    else:  # y[i] == 0
+        grad_b1 += x[i] * (-l_val)
+        
+        return np.array([grad_b0, grad_b1])
 
 
 # Exercise 4
 
+def CESutility_multi(x,a,r):
 
+    inside = 0
+    for i in range(len(x)):
+        inside += a[i]**(1-r)*x[i]**r
+        
+    return inside ** (1/r)
 
 # Only function definitions above this point. 
 
