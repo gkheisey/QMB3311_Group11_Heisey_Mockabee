@@ -173,9 +173,9 @@ print(logit(1, math.log(1), math.log(2)))
 print(logit(2, math.log(1/2), math.log(3)))
 
 #D
-print(logit_like(1, 0, 0, 0))
-print(logit_like(0, 1, 0, 1))
-print(logit_like(1, 2, 1, 1))
+print(CESutility_multi([1, 1], [1, 1], 0.5)) 
+print(CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5)) 
+print(CESutility_multi([1, -1], [1, 1], 0.5))  
 
 ##################################################
 # End
