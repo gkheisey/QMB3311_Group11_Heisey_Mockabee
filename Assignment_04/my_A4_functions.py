@@ -109,24 +109,21 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
     [-2/3, -2.0]
     """
-   
-grad_b0 = 0.0
-grad_b1 = 0.0
+    
+beta_0 = 0.0
+beta_1 = 0.0
    
 for i in range(len(y)):
     l_val = logit_like(x[i], beta_0, beta_1)
       
-    if y[i] == 1:
-        grad_b0 += (1 - l_val)
-    else:
-        grad_b0 += (-l_val)
-           
-    if y[i] == 1:
-        grad_b1 += x[i] * (1 - l_val)
-    else:  # y[i] == 0
-        grad_b1 += x[i] * (-l_val)
-        
-        return np.array([grad_b0, grad_b1])
+    if y == 1:
+            beta_0 += (1 - l_val)
+            beta_1 += x[i] * (1 - l_val)
+    else x == 0:
+            beta_0 += (-l_val)
+            beta_1 += x[i] * (-l_val)
+    
+    return np.array([beta_0, beta_1])
 
 
 # Exercise 4
