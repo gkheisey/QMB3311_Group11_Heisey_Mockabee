@@ -85,45 +85,26 @@ def logit_like_sum(y,x,beta_0, beta_1):
 
 # Exercise 3
 
-
 def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     """Calculates the gradient vector of the likelihood function
-    for the bivariate logistic regression model
+    for the bivariate logistic regression model.
     for sevaral pairs of observations in the lists x and y,
-    coefficients beta_0 and beta_1.
+    coefficients beta_0 and beta_1"""
     
-    Notice if you are missing the space after the >>>, 
-    it causes an error.
-    Also, an example without the >>> does not get run with doctest.
-    
-    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], 0.0, 0.0)
-    [0.0, 0.0]
-    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(3), 0.0)
-    [-1.0, -10.0]
-    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(7), 0.0)
-    [-1.5, -15.0]
-    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(2))
-    [0.0, 0.0]
-    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(5))
-    [-0.5, -0.5]
-    >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
-    [-2/3, -2.0]
-    """
-    
-beta_0 = 0.0
-beta_1 = 0.0
+    grad_beta_0 = 0.0
+    grad_beta_1 = 0.0
    
-for i in range(len(y)):
-    l_val = logit_like(x[i], beta_0, beta_1)
-      
-    if y == 1:
-            beta_0 += (1 - l_val)
-            beta_1 += x[i] * (1 - l_val)
-    else x == 0:
-            beta_0 += (-l_val)
-            beta_1 += x[i] * (-l_val)
+    for i in range(len(y)):
+        l_val = logit_like(x[i], beta_0, beta_1)
+          
+        if y[i] == 1:
+            grad_beta_0 += (1 - l_val)
+            grad_beta_1 += x[i] * (1 - l_val)
+        else:
+            grad_beta_0 += (-l_val)
+            grad_beta_1 += x[i] * (-l_val)
     
-    return np.array([beta_0, beta_1])
+    return np.array([grad_beta_0, grad_beta_1])
 
 
 # Exercise 4
@@ -163,7 +144,25 @@ def CESutility_multi(x, a, r):
 
 
 # Question 2: Test using the doctest module. 
+Exercise 3:
+    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], 0.0, 0.0)
+    [0.0, 0.0]
+    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(3), 0.0)
+    [-1.0, -10.0]
+    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(7), 0.0)
+    [-1.5, -15.0]
+    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(2))
+    [0.0, 0.0]
+    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(5))
+    [-0.5, -0.5]
+    >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
+    [-2/3, -2.0]
 
+
+Exercise 4:
+    print(CESutility_multi([1, 1], [1, 1], 0.5))  
+    print(CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5))  
+    print(CESutility_multi([1, -1], [1, 1], 0.5))
 
 # Make sure to include exampes in your docstring
 # with the proper formatting. 
