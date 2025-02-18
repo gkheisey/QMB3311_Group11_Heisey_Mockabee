@@ -43,7 +43,7 @@ def matrix_inverse(mat_in):
     equations A * x = b by multiplying A−1 with b toget x = A−1 * b
     """
     if mat_in.shape != (2, 2):
-        print("Warning: Input must be a 2x2 matrix")
+        print("Error: Input must be a 2x2 matrix")
         return None
         
     a11, a12 = mat_in[0, 0], mat_in[0, 1]
