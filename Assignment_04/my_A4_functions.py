@@ -24,6 +24,7 @@
 # import name_of_module
 
 import numpy as np
+import math
 import doctest
 
 ##################################################
@@ -42,7 +43,12 @@ def matrix_inverse(mat_in):
     such that A * A−1 = I, where I is the identity matrix with ones on the
     diagonal and zeros elsewhere. It can be used to solve the systems of 
     equations A * x = b by multiplying A−1 with b toget x = A−1 * b
-    """
+    >>>mat1 = np.array([[1, 0], [0, 1]])
+    print(matrix_inverse(mat1))
+    >>>mat2 = np.array([[4, 7], [2, 6]])
+    print(matrix_inverse(mat2))
+    >>>mat3 = np.array([[3, 5], [1, 2]])
+    print(matrix_inverse(mat3))"""
     if mat_in.shape != (2, 2):
         print("Error: Input must be a 2x2 matrix")
         return None
@@ -72,7 +78,23 @@ def logit_like(x, beta_0, beta_1):
     return np.exp(z) / (1 + np.exp(z))
 
 def logit_like_sum(y,x,beta_0, beta_1):
-    
+    """
+    >>>beta_0 = 0
+    beta_1 = 1
+    x = np.array([1])
+    y = np.array([1])
+    print(logit_like_sum(y, x, beta_0, beta_1))
+    >>>x = np.array([1, 2, 3])
+    y = np.array([0, 1, 1])
+    beta_0 = -1
+    beta_1 = 0.5
+    print(logit_like_sum(y, x, beta_0, beta_1))
+    >>>x = np.array([0, 0, 0])
+    y = np.array([0, 1, 0])
+    beta_0 = 0
+    beta_1 = 0
+    print(logit_like_sum(y, x, beta_0, beta_1))"""
+
     log_likelihood = 0
     for i in range(len(y)):
         log_likelihood += logit_like(y[i],x[i],beta_0,beta_1)
@@ -90,7 +112,19 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     """Calculates the gradient vector of the likelihood function
     for the bivariate logistic regression model.
     for sevaral pairs of observations in the lists x and y,
-    coefficients beta_0 and beta_1"""
+    coefficients beta_0 and beta_1
+    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], 0.0, 0.0)
+    [0.0, 0.0]
+    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(3), 0.0)
+    [-1.0, -10.0]
+    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(7), 0.0)
+    [-1.5, -15.0]
+    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(2))
+    [0.0, 0.0]
+    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(5))
+    [-0.5, -0.5]
+    >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
+    [-2/3, -2.0]"""
     
     grad_beta_0 = 0.0
     grad_beta_1 = 0.0
@@ -111,7 +145,13 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
 # Exercise 4
 
 def CESutility_multi(x, a, r):
-   """Calculate the Constant Elasticity of Substitution utility for multiple goods."""
+   """Calculate the Constant Elasticity of Substitution utility for multiple goods.
+    >>> (CESutility_multi([1, 1], [1, 1], 0.5))  
+    4.0
+    >>> (CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5))  
+    5.090890230020665
+    >>> (CESutility_multi([1, -1], [1, 1], 0.5))
+    None"""
    if not isinstance(x, (list, np.ndarray)) or not isinstance(a, (list, np.ndarray)):
        return None 
    x = np.array(x, dtype=float)
@@ -145,59 +185,6 @@ def CESutility_multi(x, a, r):
 
 
 # Question 2: Test using the doctest module.
-
-#Exercise 1:
-
-    >>>mat1 = np.array([[1, 0], [0, 1]])
-print(matrix_inverse(mat1))
-    >>>mat2 = np.array([[4, 7], [2, 6]])
-print(matrix_inverse(mat2))
-    >>>mat3 = np.array([[3, 5], [1, 2]])
-print(matrix_inverse(mat3))
-
-#Exercise 2:
-
-    >>>beta_0 = 0
-beta_1 = 1
-x = np.array([1])
-y = np.array([1])
-print(logit_like_sum(y, x, beta_0, beta_1))
-
-    >>>x = np.array([1, 2, 3])
-y = np.array([0, 1, 1])
-beta_0 = -1
-beta_1 = 0.5
-print(logit_like_sum(y, x, beta_0, beta_1))
-
-    >>>x = np.array([0, 0, 0])
-y = np.array([0, 1, 0])
-beta_0 = 0
-beta_1 = 0
-print(logit_like_sum(y, x, beta_0, beta_1))
-
-#Exercise 3:
-
-    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], 0.0, 0.0)
-    [0.0, 0.0]
-    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(3), 0.0)
-    [-1.0, -10.0]
-    >>> logit_like_grad([1, 1, 0, 0], [15.0, 5.0, 15.0, 5.0], math.log(7), 0.0)
-    [-1.5, -15.0]
-    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(2))
-    [0.0, 0.0]
-    >>> logit_like_grad([1, 0, 1], [1, 1, 1], 0.0, math.log(5))
-    [-0.5, -0.5]
-    >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
-    [-2/3, -2.0]
-
-#Exercise 4:
-
-    >>> (CESutility_multi([1, 1], [1, 1], 0.5))  
-    4.0
-    >>> (CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5))  
-    5.090890230020665
-    >>> (CESutility_multi([1, -1], [1, 1], 0.5))
-    None
 
 # Make sure to include exampes in your docstring
 # with the proper formatting. 
