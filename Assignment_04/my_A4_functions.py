@@ -35,7 +35,7 @@ import doctest
 
 # Exercise 1
 
-def matrix_inverse(mat_in):
+def matrix_inverse(mat_in): # expected input/output? (-2)
     """
     Replicate the numpy method linalg.inv() that calculates the inverse of 
     a two-by-two matrix mat in.
@@ -43,12 +43,15 @@ def matrix_inverse(mat_in):
     such that A * A−1 = I, where I is the identity matrix with ones on the
     diagonal and zeros elsewhere. It can be used to solve the systems of 
     equations A * x = b by multiplying A−1 with b toget x = A−1 * b
-    >>>mat1 = np.array([[1, 0], [0, 1]])
-    print(matrix_inverse(mat1))
-    >>>mat2 = np.array([[4, 7], [2, 6]])
-    print(matrix_inverse(mat2))
-    >>>mat3 = np.array([[3, 5], [1, 2]])
-    print(matrix_inverse(mat3))"""
+    >>> np.array([[1, 0], [0, 1]])
+    
+    >>> mat2 = np.array([[4, 7], [2, 6]])
+    
+    >>> mat3 = np.array([[3, 5], [1, 2]])
+
+    """
+    
+    # incomplete test cases (-3)
     if mat_in.shape != (2, 2):
         print("Error: Input must be a 2x2 matrix")
         return None
@@ -67,44 +70,35 @@ def matrix_inverse(mat_in):
     mat_out[1, 0] = -a21/det
     mat_out[1, 1] = a11/det
     
-    return mat_out
+    return mat_out # does not follow instructions (-5)
 
 # Exercise 2
 
-def logit_like(x, beta_0, beta_1):
+def logit_like(x, beta_0, beta_1): # use function from earlier assignment
     
     z= beta_0 + x * beta_1
     
     return np.exp(z) / (1 + np.exp(z))
 
-def logit_like_sum(y,x,beta_0, beta_1):
+def logit_like_sum(y,x,beta_0, beta_1): # expected input/output? (-2)
     """
-    >>>beta_0 = 0
-    beta_1 = 1
-    x = np.array([1])
-    y = np.array([1])
-    print(logit_like_sum(y, x, beta_0, beta_1))
-    >>>x = np.array([1, 2, 3])
-    y = np.array([0, 1, 1])
-    beta_0 = -1
-    beta_1 = 0.5
-    print(logit_like_sum(y, x, beta_0, beta_1))
-    >>>x = np.array([0, 0, 0])
-    y = np.array([0, 1, 0])
-    beta_0 = 0
-    beta_1 = 0
-    print(logit_like_sum(y, x, beta_0, beta_1))"""
+    >>> logit_like_sum(y, x, beta_0, beta_1))
+    >>> logit_like_sum(y, x, beta_0, beta_1))
+    >>> logit_like_sum(y, x, beta_0, beta_1))
+    
+    """
+    # incorrect test cases (-3)
+    # missing checks for lengths and issues with y values. (-2)
 
-    log_likelihood = 0
+    # code fails because arguments not provided in parts of the function (-3)
+    
+    total = 0
     for i in range(len(y)):
-        log_likelihood += logit_like(y[i],x[i],beta_0,beta_1)
-        
-        if y[i] == 1:
-            log_likelihood += np.log(logit_like)
-        else:
-            log_likelihood += np.log(1 - logit_like)
-       
-        return log_likelihood
+        l_like = logit_like(y[i],x[i],beta_0,beta_1)
+        if l_like == None:
+            return None
+        total += l_like 
+    return total
 
 # Exercise 3
 
@@ -126,6 +120,9 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
     >>> logit_like_grad([1, 0, 1], [3, 3, 3], 0.0, math.log(2))
     [-2/3, -2.0]"""
     
+    
+    # missing checks for lengths and issues with y values. (-2)
+    
     grad_beta_0 = 0.0
     grad_beta_1 = 0.0
    
@@ -146,12 +143,14 @@ def logit_like_grad(y: list, x: list, beta_0: float, beta_1: float) -> float:
 
 def CESutility_multi(x, a, r):
    """Calculate the Constant Elasticity of Substitution utility for multiple goods.
-    >>> (CESutility_multi([1, 1], [1, 1], 0.5))  
+    >>> CESutility_multi([1, 1], [1, 1], 0.5)  
     4.0
-    >>> (CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5))  
+    >>> CESutility_multi([1, 2, 3], [0.5, 0.3, 0.2], 0.5) 
     5.090890230020665
-    >>> (CESutility_multi([1, -1], [1, 1], 0.5))
+    >>> CESutility_multi([1, -1], [1, 1], 0.5)
     None"""
+    
+    
    if not isinstance(x, (list, np.ndarray)) or not isinstance(a, (list, np.ndarray)):
        return None 
    x = np.array(x, dtype=float)
@@ -166,7 +165,10 @@ def CESutility_multi(x, a, r):
        return None
    r = float(r)
    if r == 0:
-       return float(np.prod(np.power(x, a)))
+       return None
+   
+    # Should add message for each of the issues above
+    
    power_terms = np.power(a, 1-r) * np.power(x, r)
    sum_term = np.sum(power_terms)
    if sum_term <= 0:
@@ -174,17 +176,16 @@ def CESutility_multi(x, a, r):
    result = np.power(sum_term, 1/r)
    if not np.isreal(result) or np.isnan(result) or np.isinf(result):
        return None
-   return float(result)
+   return float(result) # while this works, it is a bit off from when we worked on the code in class.
 
 # Only function definitions above this point. 
-
 
 ##################################################
 # Test the examples in your docstrings
 ##################################################
 
 
-# Question 2: Test using the doctest module.
+# Question 2: Test using the doctest module. Didn't do this (-7)
 
 # Make sure to include exampes in your docstring
 # with the proper formatting. 
