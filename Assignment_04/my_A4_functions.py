@@ -80,24 +80,45 @@ def logit_like(x, beta_0, beta_1): # use function from earlier assignment
     
     return np.exp(z) / (1 + np.exp(z))
 
-def logit_like_sum(y,x,beta_0, beta_1): # expected input/output? (-2)
-    """
-    >>> logit_like_sum(y, x, beta_0, beta_1))
-    >>> logit_like_sum(y, x, beta_0, beta_1))
-    >>> logit_like_sum(y, x, beta_0, beta_1))
+def logit_like_sum(y: list[int], x:list[float], beta_0: float, beta_1: float) -> float: # expected input/output? (-2)
+    """Calculates the sum of the Log-Likelihood across all observations
+    (y_i, x_i, i = 1, ..., n) using the Logistic regression model. Lists x and y respresent
+    the pairs of observations,with thr intercept coefficient beta_0 and the slope coefficient beta_1.
+
+    Each observation / list item in y must be 1 or 0. Lists x and y must have the same length,
+    corresponding to the number of observations. 
     
+    >>> logit_like_sum([1,0,1],[3,2,5],2,3)
+    -8.000352
+    >>> logit_like_sum([0,1,0,1],[2,4,1,5],0,1)
+    -3.465055
+    >>> logit_like_sum([0,2,2],[2,4,1,5],0,1)
+    Error: All values in list y must be either 0 or 1
+    Error: Lists x and y must have the same length
     """
     # incorrect test cases (-3)
     # missing checks for lengths and issues with y values. (-2)
 
     # code fails because arguments not provided in parts of the function (-3)
     
-    total = 0
+    invalid_y = False
+    invalid_length = False
+    for i in y:
+        if i l= 1 and l= 0: 
+            invalid_y = True
+    if invalid_y == True:
+        print("Error: All values in list y must be either 0 or 1")
+    if len(x) l= len(y): 
+        print("Error: Lists x and y must have the same length")
+        invalid_length = True
+    if invalid_length == True or invalid_y == True:
+        return None
+    log_likelihood = 0
     for i in range(len(y)):
-        l_like = logit_like(y[i],x[i],beta_0,beta_1)
-        if l_like == None:
-            return None
-        total += l_like 
+
+        log_likelihood_summed += logit_like(y[i],x[i],beta_0,beta_1)
+
+    return log_likelihood_summed
     return total
 
 # Exercise 3
