@@ -12,11 +12,17 @@ def present_value(cash_flow: float, interest_rate: float, num_years: float) -> f
     >>>present_value(50, .07, 3)
     40.81
     """
+    if cash_flow < 0 :
+        return "Error variable cannot be negative"
+    if interest_rate < 0 :
+            return "Error variable cannot be negative"
+    if num_years < 0 :
+            return "Error variable cannot be negative"
     # needs 3 examples (-1)
     # needs either a precondition or checks to make sure that variables are not negative (-1)    
     return cash_flow / ((1 + interest_rate) ** num_years)
 
-present_value(100, .12, 2)
+present_value(1, .12, -2)
 
 
 
