@@ -119,7 +119,6 @@ def logit_like_sum(y: list[int], x:list[float], beta_0: float, beta_1: float) ->
         log_likelihood_summed += logit_like(y[i],x[i],beta_0,beta_1)
 
     return log_likelihood_summed
-    return total
 
 # Exercise 3
 
