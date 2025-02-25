@@ -67,23 +67,22 @@ def CESutility_valid(good_x: float, good_y: float, parameter: float) -> float:
 
 # Exercise B
 
-@@ -59,13 +73,11 @@
-    """ Evaluate CESutility valid() when the consumer’s choice of goods x and y
-    are within budget. 
-    Return the value None otherwise"""
+def CESUtility_in_budget(x: float, y: float, r: float, p_x: float, p_y: float, w: float) -> float:
+    """Calculate the constant elasticity of substitution utility function for two goods. This version first checks that budget constraint is satisfied" 
+    >>> CESutility_in_budget(3,4,2,1,1,10)
+    5.0
+    >>> CESutility_in_budget(1,1,2,5,10,15)
+    1.41421
+    >>> CESutility_in_budget(3,4,0,1,1,10)
+    Error in CESUtility_in_budget: budget constraint not satisfied.
+    """
     
-    # examples in description? (-3)
-    if p_x < 0 or p_y < 0:
-        print("Error: Prices cannot be negative")
+    if p_x*x + p_y*y > w: 
+        print('Error in CESUtility_in_budget: budget constraint not satisfied.')
         return None
-    if r <= 0:
-        print("Error: Parameter must be strictly positive")
-        return None
-# handled in CESutility_vaild()
-    if w < (p_x * x + p_y * y):
-        print("Error: Consumer's choice exceeds their budget")
-        return None
-@@ -74,23 +86,29 @@
+    else:
+        utility = CESutility_valid(x, y, r)
+        return utility 
 # Exercise C
 
 
