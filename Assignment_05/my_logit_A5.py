@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 12 20:37:04 2025
-
-@author: grant
-"""
 
 import math
 
