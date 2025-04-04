@@ -10,9 +10,9 @@ def CESutility(good_x: float, good_y: float, r: float) -> float:
     
     >>> CESutility(3, 4, 1)
     7.0
-    >>>CESutility(100,50,20)
+    >>> CESutility(100,50,20)
     100
-    >>>CESutility(50,25,10)
+    >>> CESutility(50,25,10)
     50.005
     """
     
